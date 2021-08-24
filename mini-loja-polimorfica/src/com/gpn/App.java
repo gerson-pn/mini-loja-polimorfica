@@ -1,10 +1,13 @@
 package com.gpn;
 
+import com.gpn.dados.Estoque;
+import com.gpn.dados.Produto;
 import com.gpn.io.Entrada;
 
 public class App {
 	public static void main(String[] args) {
-		boolean execucao = true;;
+		Estoque estoque = new Estoque();
+		boolean execucao = true;
 
 		while (execucao) {
 			System.out.println("Qual operação você deseja fazer:");
@@ -22,8 +25,22 @@ public class App {
 				System.out.println("Até mais!\n");
 				break;
 			case 1:
+				leitor = new Entrada();
+				System.out.println("\nDigite o nome do produto:");
+				String nome = leitor.receberTexto();
+				System.out.println("Digite o valor do produto:");
+				double valor = leitor.receberNumeroDouble();
+				Produto produto = new Produto(nome, valor);
+				estoque.getProdutos().add(produto);
+				System.out.println("\n");
 				break;
 			case 2:
+				System.out.println("\nLista de todos os produtos:");
+				for (int i = 0; i < estoque.getProdutos().size(); i++) {
+					Produto item = estoque.getProdutos().get(i);
+					System.out.println("ID: " + (i + 1) + " Nome: " + item.getNome() + " valor: " + item.getValor());
+				}
+				System.out.println("\n");
 				break;
 			}
 
