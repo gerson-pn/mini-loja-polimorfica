@@ -2,7 +2,12 @@ package com.gpn;
 
 import com.gpn.dados.Estoque;
 import com.gpn.dados.Produto;
+import com.gpn.descontos.Desconto;
+import com.gpn.dominio.CriadorDesconto;
+import com.gpn.dominio.Seletor;
 import com.gpn.io.Entrada;
+import com.gpn.pagamentos.Boleto;
+import com.gpn.pagamentos.FormaPagamento;
 
 public class App {
 	public static void main(String[] args) {
@@ -41,6 +46,14 @@ public class App {
 					System.out.println("ID: " + (i + 1) + " Nome: " + item.getNome() + " valor: " + item.getValor());
 				}
 				System.out.println("\n");
+				break;
+			case 3:
+				Seletor seletor = new Seletor();
+				Produto produtoEscolhido = seletor.selecionarProduto(estoque);
+				CriadorDesconto criadorDesconto = new CriadorDesconto();
+				Desconto desconto = criadorDesconto.criarDesconto(produtoEscolhido);
+				FormaPagamento formaPagamento = new Boleto(produtoEscolhido, desconto);
+				formaPagamento.processarPagamento();
 				break;
 			}
 
